@@ -1,0 +1,30 @@
+{
+   parserClass="com.olegstotsky.simplytypedlambdacalculus.parser.SimplyTypedLambdaCalculusParser"
+
+   extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+   psiClassPrefix="SimlyTypedLambdaCalculus"
+   psiImplClassSuffix="Impl"
+   psiPackage="com.olegstotsky.simplytypedlambdacalculus.psi"
+   psiImplPackage="com.olegstotsky.simplytypedlambdacalculus.psi.impl"
+
+   elementTypeHolderClass="com.olegstotsky.simplytypedlambdacalculus.psi.SimpleTypes"
+   elementTypeClass="com.olegstotsky.simplytypedlambdacalculus.psi.SimplyTypedLambdaCalculusElementType"
+   tokenTypeClass="com.olegstotsky.simplytypedlambdacalculus.psi.SimplyTypedLambdaCalculusTokenType"
+
+   tokens=[
+      BACKSLASH='\'
+      ARROW='->'
+      LEFT_PAREN='('
+      RIGHT_PAREN=')'
+
+      space='regexp:\s+'
+      id='regexp:[a-zA-Z]'
+  ]
+
+  name(".*expr")='expression'
+  extends(".*expr")=expr
+}
+
+expr ::= id | '\' identifier_list '->' expr | '('expr')' '('expr')'
+identifier_list ::= id *
