@@ -7,7 +7,31 @@ import com.intellij.psi.PsiElement;
 
 public class SimlyTypedLambdaCalculusVisitor extends PsiElementVisitor {
 
-  public void visitIdentifierList(@NotNull SimlyTypedLambdaCalculusIdentifierList o) {
+  public void visitAbstractionExpr(@NotNull SimlyTypedLambdaCalculusAbstractionExpr o) {
+    visitPsiElement(o);
+  }
+
+  public void visitApplicationExpr(@NotNull SimlyTypedLambdaCalculusApplicationExpr o) {
+    visitPsiElement(o);
+  }
+
+  public void visitLambdaExpr(@NotNull SimlyTypedLambdaCalculusLambdaExpr o) {
+    visitPsiElement(o);
+  }
+
+  public void visitParExpr(@NotNull SimlyTypedLambdaCalculusParExpr o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTypingExpr(@NotNull SimlyTypedLambdaCalculusTypingExpr o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTypingExprOther(@NotNull SimlyTypedLambdaCalculusTypingExprOther o) {
+    visitPsiElement(o);
+  }
+
+  public void visitVariableExpr(@NotNull SimlyTypedLambdaCalculusVariableExpr o) {
     visitPsiElement(o);
   }
 

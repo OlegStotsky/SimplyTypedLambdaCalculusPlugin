@@ -8,23 +8,39 @@
    psiPackage="com.olegstotsky.simplytypedlambdacalculus.psi"
    psiImplPackage="com.olegstotsky.simplytypedlambdacalculus.psi.impl"
 
-   elementTypeHolderClass="com.olegstotsky.simplytypedlambdacalculus.psi.SimpleTypes"
+   elementTypeHolderClass="com.olegstotsky.simplytypedlambdacalculus.psi.SimplyTypedLambdaCalculusTypes"
    elementTypeClass="com.olegstotsky.simplytypedlambdacalculus.psi.SimplyTypedLambdaCalculusElementType"
    tokenTypeClass="com.olegstotsky.simplytypedlambdacalculus.psi.SimplyTypedLambdaCalculusTokenType"
 
    tokens=[
       BACKSLASH='\'
       ARROW='->'
+      PLUS='+'
+      MINUS='-'
       LEFT_PAREN='('
       RIGHT_PAREN=')'
+      MUL='*'
+      DIV='/'
+      REM='%'
+      LT='<'
+      GT='>'
+      LTE='<='
+      GTE='>='
+      EQ='='
+      DOT='.'
+      COLON=':'
 
       space='regexp:\s+'
       id='regexp:[a-zA-Z]'
+      number='regexp:[0-9]+'
   ]
-
-  name(".*expr")='expression'
-  extends(".*expr")=expr
 }
 
-expr ::= id | '\' identifier_list '->' expr | '('expr')' '('expr')'
-identifier_list ::= id *
+Root ::= LambdaExpr
+LambdaExpr ::= ApplicationExpr | VariableExpr | AbstractionExpr | ParExpr
+ApplicationExpr ::= '(' LambdaExpr  LambdaExpr ')'
+AbstractionExpr ::= '\' id ':' TypingExpr '.' LambdaExpr
+TypingExpr ::= Int TypingExprOther | Bool TypingExprOther | Int | Bool
+TypingExprOther ::= '->' TypingExpr
+ParExpr ::= '(' LambdaExpr ')'
+VariableExpr ::= id

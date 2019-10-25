@@ -7,23 +7,29 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
-import static com.olegstotsky.simplytypedlambdacalculus.psi.SimpleTypes.*;
+import static com.olegstotsky.simplytypedlambdacalculus.psi.SimplyTypedLambdaCalculusTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.olegstotsky.simplytypedlambdacalculus.psi.*;
 
-public class SimlyTypedLambdaCalculusIdentifierListImpl extends ASTWrapperPsiElement implements SimlyTypedLambdaCalculusIdentifierList {
+public class SimlyTypedLambdaCalculusParExprImpl extends ASTWrapperPsiElement implements SimlyTypedLambdaCalculusParExpr {
 
-  public SimlyTypedLambdaCalculusIdentifierListImpl(@NotNull ASTNode node) {
+  public SimlyTypedLambdaCalculusParExprImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull SimlyTypedLambdaCalculusVisitor visitor) {
-    visitor.visitIdentifierList(this);
+    visitor.visitParExpr(this);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof SimlyTypedLambdaCalculusVisitor) accept((SimlyTypedLambdaCalculusVisitor)visitor);
     else super.accept(visitor);
+  }
+
+  @Override
+  @NotNull
+  public SimlyTypedLambdaCalculusLambdaExpr getLambdaExpr() {
+    return findNotNullChildByClass(SimlyTypedLambdaCalculusLambdaExpr.class);
   }
 
 }

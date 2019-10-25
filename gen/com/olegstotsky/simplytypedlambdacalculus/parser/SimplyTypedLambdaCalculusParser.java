@@ -3,7 +3,7 @@ package com.olegstotsky.simplytypedlambdacalculus.parser;
 
 import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiBuilder.Marker;
-import static com.olegstotsky.simplytypedlambdacalculus.psi.SimpleTypes.*;
+import static com.olegstotsky.simplytypedlambdacalculus.psi.SimplyTypedLambdaCalculusTypes.*;
 import static com.intellij.lang.parser.GeneratedParserUtilBase.*;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.lang.ASTNode;
@@ -32,61 +32,133 @@ public class SimplyTypedLambdaCalculusParser implements PsiParser, LightPsiParse
   }
 
   static boolean parse_root_(IElementType t, PsiBuilder b, int l) {
-    return expr(b, l + 1);
+    return Root(b, l + 1);
   }
 
   /* ********************************************************** */
-  // id | '\' identifier_list '->' expr | '('expr')' '('expr')'
-  static boolean expr(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "expr")) return false;
+  // '\' id ':' TypingExpr '.' LambdaExpr
+  public static boolean AbstractionExpr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "AbstractionExpr")) return false;
+    if (!nextTokenIs(b, BACKSLASH)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, null, "<expression>");
-    r = consumeToken(b, ID);
-    if (!r) r = expr_1(b, l + 1);
-    if (!r) r = expr_2(b, l + 1);
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, BACKSLASH, ID, COLON);
+    r = r && TypingExpr(b, l + 1);
+    r = r && consumeToken(b, DOT);
+    r = r && LambdaExpr(b, l + 1);
+    exit_section_(b, m, ABSTRACTION_EXPR, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // '(' LambdaExpr  LambdaExpr ')'
+  public static boolean ApplicationExpr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ApplicationExpr")) return false;
+    if (!nextTokenIs(b, LEFT_PAREN)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LEFT_PAREN);
+    r = r && LambdaExpr(b, l + 1);
+    r = r && LambdaExpr(b, l + 1);
+    r = r && consumeToken(b, RIGHT_PAREN);
+    exit_section_(b, m, APPLICATION_EXPR, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // ApplicationExpr | VariableExpr | AbstractionExpr | ParExpr
+  public static boolean LambdaExpr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "LambdaExpr")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, LAMBDA_EXPR, "<lambda expr>");
+    r = ApplicationExpr(b, l + 1);
+    if (!r) r = VariableExpr(b, l + 1);
+    if (!r) r = AbstractionExpr(b, l + 1);
+    if (!r) r = ParExpr(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // '\' identifier_list '->' expr
-  private static boolean expr_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "expr_1")) return false;
+  /* ********************************************************** */
+  // '(' LambdaExpr ')'
+  public static boolean ParExpr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ParExpr")) return false;
+    if (!nextTokenIs(b, LEFT_PAREN)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, BACKSLASH);
-    r = r && identifier_list(b, l + 1);
-    r = r && consumeToken(b, ARROW);
-    r = r && expr(b, l + 1);
+    r = consumeToken(b, LEFT_PAREN);
+    r = r && LambdaExpr(b, l + 1);
+    r = r && consumeToken(b, RIGHT_PAREN);
+    exit_section_(b, m, PAR_EXPR, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // LambdaExpr
+  static boolean Root(PsiBuilder b, int l) {
+    return LambdaExpr(b, l + 1);
+  }
+
+  /* ********************************************************** */
+  // Int TypingExprOther | Bool TypingExprOther | Int | Bool
+  public static boolean TypingExpr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "TypingExpr")) return false;
+    if (!nextTokenIs(b, "<typing expr>", BOOL, INT)) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, TYPING_EXPR, "<typing expr>");
+    r = TypingExpr_0(b, l + 1);
+    if (!r) r = TypingExpr_1(b, l + 1);
+    if (!r) r = consumeToken(b, INT);
+    if (!r) r = consumeToken(b, BOOL);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // Int TypingExprOther
+  private static boolean TypingExpr_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "TypingExpr_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, INT);
+    r = r && TypingExprOther(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // '('expr')' '('expr')'
-  private static boolean expr_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "expr_2")) return false;
+  // Bool TypingExprOther
+  private static boolean TypingExpr_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "TypingExpr_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, LEFT_PAREN);
-    r = r && expr(b, l + 1);
-    r = r && consumeTokens(b, 0, RIGHT_PAREN, LEFT_PAREN);
-    r = r && expr(b, l + 1);
-    r = r && consumeToken(b, RIGHT_PAREN);
+    r = consumeToken(b, BOOL);
+    r = r && TypingExprOther(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
   /* ********************************************************** */
-  // id *
-  public static boolean identifier_list(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "identifier_list")) return false;
-    Marker m = enter_section_(b, l, _NONE_, IDENTIFIER_LIST, "<identifier list>");
-    while (true) {
-      int c = current_position_(b);
-      if (!consumeToken(b, ID)) break;
-      if (!empty_element_parsed_guard_(b, "identifier_list", c)) break;
-    }
-    exit_section_(b, l, m, true, false, null);
-    return true;
+  // '->' TypingExpr
+  public static boolean TypingExprOther(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "TypingExprOther")) return false;
+    if (!nextTokenIs(b, ARROW)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, ARROW);
+    r = r && TypingExpr(b, l + 1);
+    exit_section_(b, m, TYPING_EXPR_OTHER, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // id
+  public static boolean VariableExpr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "VariableExpr")) return false;
+    if (!nextTokenIs(b, ID)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, ID);
+    exit_section_(b, m, VARIABLE_EXPR, r);
+    return r;
   }
 
 }

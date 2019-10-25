@@ -5,6 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SimlyTypedLambdaCalculusIdentifierList extends PsiElement {
+public interface SimlyTypedLambdaCalculusTypingExpr extends PsiElement {
+
+  @Nullable
+  SimlyTypedLambdaCalculusTypingExprOther getTypingExprOther();
 
 }
