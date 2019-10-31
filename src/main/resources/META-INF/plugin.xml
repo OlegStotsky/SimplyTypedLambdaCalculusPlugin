@@ -11,9 +11,14 @@
                   language="SimplyTypedLambdaCalculus" extensions="stlc"/>
         <lang.parserDefinition language="SimplyTypedLambdaCalculus"
                                implementationClass="com.olegstotsky.simplytypedlambdacalculus.SimplyTypedLambdaCalculusParserDefinition"/>
+        <configurationType implementation="com.olegstotsky.simplytypedlambdacalculus.execution.SimplyTypedLambdaCalculusRunConfigurationType" />
+        <programRunner implementation="com.olegstotsky.simplytypedlambdacalculus.execution.SimplyTypedLambdaCalculusProgramRunner" />
     </extensions>
 
     <actions>
-        <!-- Add your actions here -->
+        <action id="com.olegstotsky.simplytypedlambdacalculus.TypeCheckAction"
+                class="com.olegstotsky.simplytypedlambdacalculus.TypeCheckAction" text="Type Check">
+            <add-to-group group-id="RunMenu" anchor="first"/>
+        </action>
     </actions>
 </idea-plugin>
