@@ -26,6 +26,7 @@ public class SimplyTypedLambdaCalculusRunConfiguration extends RunConfigurationB
     @Nullable
     @Override
     public RunProfileState getState(@NotNull Executor executor, @NotNull ExecutionEnvironment environment) throws ExecutionException {
-        return null;
+        SimplyTypedLambdaCalculusCommandLineState state = new SimplyTypedLambdaCalculusCommandLineState(environment);
+        return state;
     }
 }

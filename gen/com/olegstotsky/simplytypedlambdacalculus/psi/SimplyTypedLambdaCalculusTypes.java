@@ -12,6 +12,7 @@ public interface SimplyTypedLambdaCalculusTypes {
   IElementType APPLICATION_EXPR = new SimplyTypedLambdaCalculusElementType("APPLICATION_EXPR");
   IElementType LAMBDA_EXPR = new SimplyTypedLambdaCalculusElementType("LAMBDA_EXPR");
   IElementType PAR_EXPR = new SimplyTypedLambdaCalculusElementType("PAR_EXPR");
+  IElementType STATEMENT = new SimplyTypedLambdaCalculusElementType("STATEMENT");
   IElementType TYPING_EXPR = new SimplyTypedLambdaCalculusElementType("TYPING_EXPR");
   IElementType TYPING_EXPR_OTHER = new SimplyTypedLambdaCalculusElementType("TYPING_EXPR_OTHER");
   IElementType VARIABLE_EXPR = new SimplyTypedLambdaCalculusElementType("VARIABLE_EXPR");
@@ -51,6 +52,9 @@ public interface SimplyTypedLambdaCalculusTypes {
       }
       else if (type == PAR_EXPR) {
         return new SimlyTypedLambdaCalculusParExprImpl(node);
+      }
+      else if (type == STATEMENT) {
+        return new SimlyTypedLambdaCalculusStatementImpl(node);
       }
       else if (type == TYPING_EXPR) {
         return new SimlyTypedLambdaCalculusTypingExprImpl(node);

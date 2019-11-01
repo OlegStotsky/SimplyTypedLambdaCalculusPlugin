@@ -94,9 +94,27 @@ public class SimplyTypedLambdaCalculusParser implements PsiParser, LightPsiParse
   }
 
   /* ********************************************************** */
-  // LambdaExpr
+  // Statement *
   static boolean Root(PsiBuilder b, int l) {
-    return LambdaExpr(b, l + 1);
+    if (!recursion_guard_(b, l, "Root")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!Statement(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "Root", c)) break;
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
+  // LambdaExpr ';'
+  public static boolean Statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Statement")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, STATEMENT, "<statement>");
+    r = LambdaExpr(b, l + 1);
+    r = r && consumeToken(b, ";");
+    exit_section_(b, l, m, r, false, null);
+    return r;
   }
 
   /* ********************************************************** */

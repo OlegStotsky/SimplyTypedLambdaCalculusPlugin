@@ -36,7 +36,8 @@
   ]
 }
 
-Root ::= LambdaExpr
+Root ::= Statement *
+Statement ::= LambdaExpr ';'
 LambdaExpr ::= ApplicationExpr | VariableExpr | AbstractionExpr | ParExpr
 ApplicationExpr ::= '(' LambdaExpr  LambdaExpr ')'
 AbstractionExpr ::= '\' id ':' TypingExpr '.' LambdaExpr

@@ -23,6 +23,10 @@ public class SimlyTypedLambdaCalculusVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitStatement(@NotNull SimlyTypedLambdaCalculusStatement o) {
+    visitPsiElement(o);
+  }
+
   public void visitTypingExpr(@NotNull SimlyTypedLambdaCalculusTypingExpr o) {
     visitPsiElement(o);
   }
