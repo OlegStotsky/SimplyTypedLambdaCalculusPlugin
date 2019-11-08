@@ -12,7 +12,8 @@
         <lang.parserDefinition language="SimplyTypedLambdaCalculus"
                                implementationClass="com.olegstotsky.simplytypedlambdacalculus.SimplyTypedLambdaCalculusParserDefinition"/>
         <configurationType implementation="com.olegstotsky.simplytypedlambdacalculus.execution.SimplyTypedLambdaCalculusRunConfigurationType" />
-        <programRunner implementation="com.olegstotsky.simplytypedlambdacalculus.execution.SimplyTypedLambdaCalculusProgramRunner" />
+        <annotator language="SimplyTypedLambdaCalculus"
+                   implementationClass="com.olegstotsky.simplytypedlambdacalculus.TypingErrorHighlighter"/>
     </extensions>
 
     <actions>
