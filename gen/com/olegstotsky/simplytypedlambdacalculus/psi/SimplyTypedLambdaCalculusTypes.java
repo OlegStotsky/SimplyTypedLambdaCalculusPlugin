@@ -37,33 +37,34 @@ public interface SimplyTypedLambdaCalculusTypes {
   IElementType PLUS = new SimplyTypedLambdaCalculusTokenType("+");
   IElementType REM = new SimplyTypedLambdaCalculusTokenType("%");
   IElementType RIGHT_PAREN = new SimplyTypedLambdaCalculusTokenType(")");
+  IElementType SEMICOLON = new SimplyTypedLambdaCalculusTokenType(";");
 
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
       if (type == ABSTRACTION_EXPR) {
-        return new SimlyTypedLambdaCalculusAbstractionExprImpl(node);
+        return new SimplyTypedLambdaCalculusAbstractionExprImpl(node);
       }
       else if (type == APPLICATION_EXPR) {
-        return new SimlyTypedLambdaCalculusApplicationExprImpl(node);
+        return new SimplyTypedLambdaCalculusApplicationExprImpl(node);
       }
       else if (type == LAMBDA_EXPR) {
-        return new SimlyTypedLambdaCalculusLambdaExprImpl(node);
+        return new SimplyTypedLambdaCalculusLambdaExprImpl(node);
       }
       else if (type == PAR_EXPR) {
-        return new SimlyTypedLambdaCalculusParExprImpl(node);
+        return new SimplyTypedLambdaCalculusParExprImpl(node);
       }
       else if (type == STATEMENT) {
-        return new SimlyTypedLambdaCalculusStatementImpl(node);
+        return new SimplyTypedLambdaCalculusStatementImpl(node);
       }
       else if (type == TYPING_EXPR) {
-        return new SimlyTypedLambdaCalculusTypingExprImpl(node);
+        return new SimplyTypedLambdaCalculusTypingExprImpl(node);
       }
       else if (type == TYPING_EXPR_OTHER) {
-        return new SimlyTypedLambdaCalculusTypingExprOtherImpl(node);
+        return new SimplyTypedLambdaCalculusTypingExprOtherImpl(node);
       }
       else if (type == VARIABLE_EXPR) {
-        return new SimlyTypedLambdaCalculusVariableExprImpl(node);
+        return new SimplyTypedLambdaCalculusVariableExprImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }

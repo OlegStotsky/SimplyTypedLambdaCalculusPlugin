@@ -49,6 +49,7 @@ NUMBER=[0-9]+
   "="                { return EQ; }
   "."                { return DOT; }
   ":"                { return COLON; }
+  ";"                { return SEMICOLON; }
   "Int"              { return INT; }
   "Bool"             { return BOOL; }
 

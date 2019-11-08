@@ -3,7 +3,7 @@
 
    extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
 
-   psiClassPrefix="SimlyTypedLambdaCalculus"
+   psiClassPrefix="SimplyTypedLambdaCalculus"
    psiImplClassSuffix="Impl"
    psiPackage="com.olegstotsky.simplytypedlambdacalculus.psi"
    psiImplPackage="com.olegstotsky.simplytypedlambdacalculus.psi.impl"
@@ -29,6 +29,7 @@
       EQ='='
       DOT='.'
       COLON=':'
+      SEMICOLON=';'
 
       space='regexp:\s+'
       id='regexp:[a-zA-Z]'

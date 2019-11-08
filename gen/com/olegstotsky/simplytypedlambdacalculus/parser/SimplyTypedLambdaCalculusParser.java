@@ -112,7 +112,7 @@ public class SimplyTypedLambdaCalculusParser implements PsiParser, LightPsiParse
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, STATEMENT, "<statement>");
     r = LambdaExpr(b, l + 1);
-    r = r && consumeToken(b, ";");
+    r = r && consumeToken(b, SEMICOLON);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
