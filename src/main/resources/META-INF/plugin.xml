@@ -12,14 +12,7 @@
         <lang.parserDefinition language="SimplyTypedLambdaCalculus"
                                implementationClass="com.olegstotsky.simplytypedlambdacalculus.SimplyTypedLambdaCalculusParserDefinition"/>
         <configurationType implementation="com.olegstotsky.simplytypedlambdacalculus.execution.SimplyTypedLambdaCalculusRunConfigurationType" />
-        <annotator language="SimplyTypedLambdaCalculus"
-                   implementationClass="com.olegstotsky.simplytypedlambdacalculus.TypingErrorHighlighter"/>
+        <externalAnnotator language="SimplyTypedLambdaCalculus"
+                   implementationClass="com.olegstotsky.simplytypedlambdacalculus.TypingErrorHighlighterExternal"/>
     </extensions>
-
-    <actions>
-        <action id="com.olegstotsky.simplytypedlambdacalculus.TypeCheckAction"
-                class="com.olegstotsky.simplytypedlambdacalculus.TypeCheckAction" text="Type Check">
-            <add-to-group group-id="RunMenu" anchor="first"/>
-        </action>
-    </actions>
 </idea-plugin>
