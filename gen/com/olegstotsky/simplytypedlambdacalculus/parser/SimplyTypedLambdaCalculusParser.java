@@ -66,7 +66,37 @@ public class SimplyTypedLambdaCalculusParser implements PsiParser, LightPsiParse
   }
 
   /* ********************************************************** */
-  // ApplicationExpr | VariableExpr | AbstractionExpr | ParExpr
+  // true | false
+  public static boolean BoolExpr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "BoolExpr")) return false;
+    if (!nextTokenIs(b, "<bool expr>", FALSE, TRUE)) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, BOOL_EXPR, "<bool expr>");
+    r = consumeToken(b, TRUE);
+    if (!r) r = consumeToken(b, FALSE);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // if LambdaExpr then LambdaExpr else LambdaExpr
+  public static boolean CondExpr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "CondExpr")) return false;
+    if (!nextTokenIs(b, IF)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IF);
+    r = r && LambdaExpr(b, l + 1);
+    r = r && consumeToken(b, THEN);
+    r = r && LambdaExpr(b, l + 1);
+    r = r && consumeToken(b, ELSE);
+    r = r && LambdaExpr(b, l + 1);
+    exit_section_(b, m, COND_EXPR, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // ApplicationExpr | VariableExpr | AbstractionExpr | CondExpr | NumExpr | BoolExpr | ParExpr
   public static boolean LambdaExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "LambdaExpr")) return false;
     boolean r;
@@ -74,8 +104,23 @@ public class SimplyTypedLambdaCalculusParser implements PsiParser, LightPsiParse
     r = ApplicationExpr(b, l + 1);
     if (!r) r = VariableExpr(b, l + 1);
     if (!r) r = AbstractionExpr(b, l + 1);
+    if (!r) r = CondExpr(b, l + 1);
+    if (!r) r = NumExpr(b, l + 1);
+    if (!r) r = BoolExpr(b, l + 1);
     if (!r) r = ParExpr(b, l + 1);
     exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // number
+  public static boolean NumExpr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "NumExpr")) return false;
+    if (!nextTokenIs(b, NUMBER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, NUMBER);
+    exit_section_(b, m, NUM_EXPR, r);
     return r;
   }
 

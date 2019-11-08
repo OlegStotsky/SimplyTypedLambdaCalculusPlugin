@@ -50,8 +50,13 @@ NUMBER=[0-9]+
   "."                { return DOT; }
   ":"                { return COLON; }
   ";"                { return SEMICOLON; }
+  "if"               { return IF; }
+  "then"             { return THEN; }
+  "else"             { return ELSE; }
   "Int"              { return INT; }
   "Bool"             { return BOOL; }
+  "true"             { return TRUE; }
+  "false"            { return FALSE; }
 
   {SPACE}            { return SPACE; }
   {ID}               { return ID; }

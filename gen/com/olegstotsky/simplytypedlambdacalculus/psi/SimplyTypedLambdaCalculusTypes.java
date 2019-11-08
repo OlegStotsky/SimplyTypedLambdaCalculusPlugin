@@ -10,7 +10,10 @@ public interface SimplyTypedLambdaCalculusTypes {
 
   IElementType ABSTRACTION_EXPR = new SimplyTypedLambdaCalculusElementType("ABSTRACTION_EXPR");
   IElementType APPLICATION_EXPR = new SimplyTypedLambdaCalculusElementType("APPLICATION_EXPR");
+  IElementType BOOL_EXPR = new SimplyTypedLambdaCalculusElementType("BOOL_EXPR");
+  IElementType COND_EXPR = new SimplyTypedLambdaCalculusElementType("COND_EXPR");
   IElementType LAMBDA_EXPR = new SimplyTypedLambdaCalculusElementType("LAMBDA_EXPR");
+  IElementType NUM_EXPR = new SimplyTypedLambdaCalculusElementType("NUM_EXPR");
   IElementType PAR_EXPR = new SimplyTypedLambdaCalculusElementType("PAR_EXPR");
   IElementType STATEMENT = new SimplyTypedLambdaCalculusElementType("STATEMENT");
   IElementType TYPING_EXPR = new SimplyTypedLambdaCalculusElementType("TYPING_EXPR");
@@ -23,10 +26,13 @@ public interface SimplyTypedLambdaCalculusTypes {
   IElementType COLON = new SimplyTypedLambdaCalculusTokenType(":");
   IElementType DIV = new SimplyTypedLambdaCalculusTokenType("/");
   IElementType DOT = new SimplyTypedLambdaCalculusTokenType(".");
+  IElementType ELSE = new SimplyTypedLambdaCalculusTokenType("else");
   IElementType EQ = new SimplyTypedLambdaCalculusTokenType("=");
+  IElementType FALSE = new SimplyTypedLambdaCalculusTokenType("false");
   IElementType GT = new SimplyTypedLambdaCalculusTokenType(">");
   IElementType GTE = new SimplyTypedLambdaCalculusTokenType(">=");
   IElementType ID = new SimplyTypedLambdaCalculusTokenType("id");
+  IElementType IF = new SimplyTypedLambdaCalculusTokenType("if");
   IElementType INT = new SimplyTypedLambdaCalculusTokenType("Int");
   IElementType LEFT_PAREN = new SimplyTypedLambdaCalculusTokenType("(");
   IElementType LT = new SimplyTypedLambdaCalculusTokenType("<");
@@ -38,6 +44,8 @@ public interface SimplyTypedLambdaCalculusTypes {
   IElementType REM = new SimplyTypedLambdaCalculusTokenType("%");
   IElementType RIGHT_PAREN = new SimplyTypedLambdaCalculusTokenType(")");
   IElementType SEMICOLON = new SimplyTypedLambdaCalculusTokenType(";");
+  IElementType THEN = new SimplyTypedLambdaCalculusTokenType("then");
+  IElementType TRUE = new SimplyTypedLambdaCalculusTokenType("true");
 
   class Factory {
     public static PsiElement createElement(ASTNode node) {
@@ -48,8 +56,17 @@ public interface SimplyTypedLambdaCalculusTypes {
       else if (type == APPLICATION_EXPR) {
         return new SimplyTypedLambdaCalculusApplicationExprImpl(node);
       }
+      else if (type == BOOL_EXPR) {
+        return new SimplyTypedLambdaCalculusBoolExprImpl(node);
+      }
+      else if (type == COND_EXPR) {
+        return new SimplyTypedLambdaCalculusCondExprImpl(node);
+      }
       else if (type == LAMBDA_EXPR) {
         return new SimplyTypedLambdaCalculusLambdaExprImpl(node);
+      }
+      else if (type == NUM_EXPR) {
+        return new SimplyTypedLambdaCalculusNumExprImpl(node);
       }
       else if (type == PAR_EXPR) {
         return new SimplyTypedLambdaCalculusParExprImpl(node);

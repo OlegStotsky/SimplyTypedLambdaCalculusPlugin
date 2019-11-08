@@ -39,10 +39,13 @@
 
 Root ::= Statement *
 Statement ::= LambdaExpr ';'
-LambdaExpr ::= ApplicationExpr | VariableExpr | AbstractionExpr | ParExpr
+LambdaExpr ::= ApplicationExpr | VariableExpr | AbstractionExpr | CondExpr | NumExpr | BoolExpr | ParExpr
 ApplicationExpr ::= '(' LambdaExpr  LambdaExpr ')'
 AbstractionExpr ::= '\' id ':' TypingExpr '.' LambdaExpr
+CondExpr ::= if LambdaExpr then LambdaExpr else LambdaExpr
 TypingExpr ::= Int TypingExprOther | Bool TypingExprOther | Int | Bool
 TypingExprOther ::= '->' TypingExpr
 ParExpr ::= '(' LambdaExpr ')'
+BoolExpr ::= true | false
+NumExpr ::= number
 VariableExpr ::= id

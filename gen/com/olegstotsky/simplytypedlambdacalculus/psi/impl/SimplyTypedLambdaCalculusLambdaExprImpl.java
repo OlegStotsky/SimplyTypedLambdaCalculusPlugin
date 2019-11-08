@@ -40,6 +40,24 @@ public class SimplyTypedLambdaCalculusLambdaExprImpl extends ASTWrapperPsiElemen
 
   @Override
   @Nullable
+  public SimplyTypedLambdaCalculusBoolExpr getBoolExpr() {
+    return findChildByClass(SimplyTypedLambdaCalculusBoolExpr.class);
+  }
+
+  @Override
+  @Nullable
+  public SimplyTypedLambdaCalculusCondExpr getCondExpr() {
+    return findChildByClass(SimplyTypedLambdaCalculusCondExpr.class);
+  }
+
+  @Override
+  @Nullable
+  public SimplyTypedLambdaCalculusNumExpr getNumExpr() {
+    return findChildByClass(SimplyTypedLambdaCalculusNumExpr.class);
+  }
+
+  @Override
+  @Nullable
   public SimplyTypedLambdaCalculusParExpr getParExpr() {
     return findChildByClass(SimplyTypedLambdaCalculusParExpr.class);
   }
