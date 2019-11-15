@@ -39,7 +39,7 @@
 
 Root ::= Statement *
 Statement ::= LambdaExpr ';'
-LambdaExpr ::= ApplicationExpr | VariableExpr | AbstractionExpr | CondExpr | NumExpr | BoolExpr | ParExpr
+LambdaExpr ::= ApplicationExpr | VariableExpr | AbstractionExpr | CondExpr |  NumExpr | BoolExpr | ParExpr
 ApplicationExpr ::= '(' LambdaExpr  LambdaExpr ')'
 AbstractionExpr ::= '\' id ':' TypingExpr '.' LambdaExpr
 CondExpr ::= if LambdaExpr then LambdaExpr else LambdaExpr

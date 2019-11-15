@@ -13,6 +13,6 @@
                                implementationClass="com.olegstotsky.simplytypedlambdacalculus.SimplyTypedLambdaCalculusParserDefinition"/>
         <configurationType implementation="com.olegstotsky.simplytypedlambdacalculus.execution.SimplyTypedLambdaCalculusRunConfigurationType" />
         <externalAnnotator language="SimplyTypedLambdaCalculus"
-                   implementationClass="com.olegstotsky.simplytypedlambdacalculus.TypingErrorHighlighterExternal"/>
+                           implementationClass="com.olegstotsky.simplytypedlambdacalculus.StitchExternalEvaluatorAnnotator"/>
     </extensions>
 </idea-plugin>
