@@ -11,19 +11,31 @@ import static com.olegstotsky.simplytypedlambdacalculus.psi.SimplyTypedLambdaCal
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.olegstotsky.simplytypedlambdacalculus.psi.*;
 
-public class SimplyTypedLambdaCalculusVariableExprImpl extends ASTWrapperPsiElement implements SimplyTypedLambdaCalculusVariableExpr {
+public class SimplyTypedLambdaCalculusDeclarationImpl extends ASTWrapperPsiElement implements SimplyTypedLambdaCalculusDeclaration {
 
-  public SimplyTypedLambdaCalculusVariableExprImpl(@NotNull ASTNode node) {
+  public SimplyTypedLambdaCalculusDeclarationImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull SimplyTypedLambdaCalculusVisitor visitor) {
-    visitor.visitVariableExpr(this);
+    visitor.visitDeclaration(this);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof SimplyTypedLambdaCalculusVisitor) accept((SimplyTypedLambdaCalculusVisitor)visitor);
     else super.accept(visitor);
+  }
+
+  @Override
+  @NotNull
+  public SimplyTypedLambdaCalculusLambdaExpr getLambdaExpr() {
+    return findNotNullChildByClass(SimplyTypedLambdaCalculusLambdaExpr.class);
+  }
+
+  @Override
+  @NotNull
+  public SimplyTypedLambdaCalculusVariableExpr getVariableExpr() {
+    return findNotNullChildByClass(SimplyTypedLambdaCalculusVariableExpr.class);
   }
 
 }

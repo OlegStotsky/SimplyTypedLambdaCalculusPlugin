@@ -96,7 +96,21 @@ public class SimplyTypedLambdaCalculusParser implements PsiParser, LightPsiParse
   }
 
   /* ********************************************************** */
-  // ApplicationExpr | VariableExpr | AbstractionExpr | CondExpr | NumExpr | BoolExpr | ParExpr
+  // VariableExpr '=' LambdaExpr
+  public static boolean Declaration(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Declaration")) return false;
+    if (!nextTokenIs(b, ID)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = VariableExpr(b, l + 1);
+    r = r && consumeToken(b, EQ);
+    r = r && LambdaExpr(b, l + 1);
+    exit_section_(b, m, DECLARATION, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // ApplicationExpr | VariableExpr | AbstractionExpr | CondExpr |  NumExpr | BoolExpr | ParExpr
   public static boolean LambdaExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "LambdaExpr")) return false;
     boolean r;
@@ -151,14 +165,23 @@ public class SimplyTypedLambdaCalculusParser implements PsiParser, LightPsiParse
   }
 
   /* ********************************************************** */
-  // LambdaExpr ';'
+  // (Declaration | LambdaExpr) ';'
   public static boolean Statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Statement")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, STATEMENT, "<statement>");
-    r = LambdaExpr(b, l + 1);
+    r = Statement_0(b, l + 1);
     r = r && consumeToken(b, SEMICOLON);
     exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // Declaration | LambdaExpr
+  private static boolean Statement_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Statement_0")) return false;
+    boolean r;
+    r = Declaration(b, l + 1);
+    if (!r) r = LambdaExpr(b, l + 1);
     return r;
   }
 
@@ -213,13 +236,18 @@ public class SimplyTypedLambdaCalculusParser implements PsiParser, LightPsiParse
   }
 
   /* ********************************************************** */
-  // id
+  // id+
   public static boolean VariableExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "VariableExpr")) return false;
     if (!nextTokenIs(b, ID)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, ID);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, ID)) break;
+      if (!empty_element_parsed_guard_(b, "VariableExpr", c)) break;
+    }
     exit_section_(b, m, VARIABLE_EXPR, r);
     return r;
   }

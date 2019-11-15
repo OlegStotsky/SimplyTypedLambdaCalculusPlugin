@@ -23,6 +23,10 @@ public class SimplyTypedLambdaCalculusVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitDeclaration(@NotNull SimplyTypedLambdaCalculusDeclaration o) {
+    visitPsiElement(o);
+  }
+
   public void visitLambdaExpr(@NotNull SimplyTypedLambdaCalculusLambdaExpr o) {
     visitPsiElement(o);
   }

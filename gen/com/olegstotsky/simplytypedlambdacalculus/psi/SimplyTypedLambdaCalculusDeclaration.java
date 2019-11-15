@@ -5,12 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SimplyTypedLambdaCalculusStatement extends PsiElement {
+public interface SimplyTypedLambdaCalculusDeclaration extends PsiElement {
 
-  @Nullable
-  SimplyTypedLambdaCalculusDeclaration getDeclaration();
-
-  @Nullable
+  @NotNull
   SimplyTypedLambdaCalculusLambdaExpr getLambdaExpr();
+
+  @NotNull
+  SimplyTypedLambdaCalculusVariableExpr getVariableExpr();
 
 }

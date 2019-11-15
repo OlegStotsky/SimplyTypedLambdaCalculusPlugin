@@ -27,9 +27,15 @@ public class SimplyTypedLambdaCalculusStatementImpl extends ASTWrapperPsiElement
   }
 
   @Override
-  @NotNull
+  @Nullable
+  public SimplyTypedLambdaCalculusDeclaration getDeclaration() {
+    return findChildByClass(SimplyTypedLambdaCalculusDeclaration.class);
+  }
+
+  @Override
+  @Nullable
   public SimplyTypedLambdaCalculusLambdaExpr getLambdaExpr() {
-    return findNotNullChildByClass(SimplyTypedLambdaCalculusLambdaExpr.class);
+    return findChildByClass(SimplyTypedLambdaCalculusLambdaExpr.class);
   }
 
 }
