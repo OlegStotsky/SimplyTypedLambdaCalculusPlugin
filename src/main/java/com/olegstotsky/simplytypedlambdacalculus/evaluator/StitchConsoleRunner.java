@@ -12,9 +12,9 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Optional;
 
-public class StitchRunnerConsole implements StitchRunner {
+public class StitchConsoleRunner implements StitchRunner {
     private static String STITCH_BINARY_PATH = "/Users/olegstotsky/desktop/University/LambdaPlugin/stitch/stitch";
-    private static Logger LOG = Logger.getInstance(StitchRunnerConsole.class);
+    private static Logger LOG = Logger.getInstance(StitchConsoleRunner.class);
 
     @Override
     public Optional<List<String>> evaluate(String text) {

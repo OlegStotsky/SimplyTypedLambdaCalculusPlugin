@@ -33,7 +33,7 @@ public class StitchExternalEvaluatorAnnotator extends ExternalAnnotator<List<Sta
         List<ParseResult> result = collectedInfo.stream().map(statement -> {
             String text = statement.getText();
             Integer offset = statement.getOffsetFromStart();
-            Optional<List<String>> lines = new StitchRunnerConsole().evaluate(text);
+            Optional<List<String>> lines = new StitchConsoleRunner().evaluate(text);
             if (!lines.isPresent()) {
                 return null;
             }
