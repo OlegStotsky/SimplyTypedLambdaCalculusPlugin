@@ -5,7 +5,7 @@ import com.intellij.openapi.util.Pair;
 import java.util.List;
 import java.util.Optional;
 
-public class StitchDockerRunnerOutputParser {
+public class StitchDockerRunnerOutputParser implements StitchOutputParser {
     public Optional<Pair<String, Boolean>> parseLines(List<String> lines) {
         if (lines.size() < 6) {
             return Optional.empty();

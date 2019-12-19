@@ -5,7 +5,7 @@ import com.intellij.openapi.util.Pair;
 import java.util.List;
 import java.util.Optional;
 
-public class StitchConsoleRunnerOutputParser {
+public class StitchConsoleRunnerOutputParser implements StitchOutputParser {
     public Optional<Pair<String, Boolean>> parseLines(List<String> lines) {
         if (lines.size() < 4) {
             return Optional.empty();
