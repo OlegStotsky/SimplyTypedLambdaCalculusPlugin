@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class StitchConsoleRunner implements StitchRunner {
-    private static String STITCH_BINARY_PATH = "/Users/olegstotsky/desktop/University/LambdaPlugin/stitch/stitch";
+    private static String STITCH_BINARY_PATH = "/Users/olegstotsky/desktop/University/LambdaPlugin/stitch/stitch2";
     private static Logger LOG = Logger.getInstance(StitchConsoleRunner.class);
 
     @Override

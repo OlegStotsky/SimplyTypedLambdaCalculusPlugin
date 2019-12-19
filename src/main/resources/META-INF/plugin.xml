@@ -14,5 +14,7 @@
         <configurationType implementation="com.olegstotsky.simplytypedlambdacalculus.execution.SimplyTypedLambdaCalculusRunConfigurationType" />
         <externalAnnotator language="SimplyTypedLambdaCalculus"
                            implementationClass="com.olegstotsky.simplytypedlambdacalculus.evaluator.StitchExternalEvaluatorAnnotator"/>
+        <lang.syntaxHighlighterFactory language="SimplyTypedLambdaCalculus"
+                                       implementationClass="com.olegstotsky.simplytypedlambdacalculus.SimplyTypedLambdaCalculusSyntaxHighlighterFactory"/>
     </extensions>
 </idea-plugin>
