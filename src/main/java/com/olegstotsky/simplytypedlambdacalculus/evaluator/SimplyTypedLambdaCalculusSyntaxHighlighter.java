@@ -17,8 +17,8 @@ import static com.intellij.openapi.editor.colors.TextAttributesKey.createTextAtt
 
 public class SimplyTypedLambdaCalculusSyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey OPERATOR = createTextAttributesKey("SEPARATOR", DefaultLanguageHighlighterColors.OPERATION_SIGN);
-    public static final TextAttributesKey KEYWORD = createTextAttributesKey("SEPARATOR", DefaultLanguageHighlighterColors.KEYWORD);
-    public static final TextAttributesKey IDENTIFIER = createTextAttributesKey("SEPARATOR", DefaultLanguageHighlighterColors.IDENTIFIER);
+    public static final TextAttributesKey KEYWORD = createTextAttributesKey("KEYWORD", DefaultLanguageHighlighterColors.KEYWORD);
+    public static final TextAttributesKey IDENTIFIER = createTextAttributesKey("IDENTIFIER", DefaultLanguageHighlighterColors.IDENTIFIER);
     public static final TextAttributesKey BAD_CHARACTER = createTextAttributesKey("SIMPLE_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER);
     public static final IElementType[] keywords = {SimplyTypedLambdaCalculusTypes.TRUE,
             SimplyTypedLambdaCalculusTypes.FALSE,
