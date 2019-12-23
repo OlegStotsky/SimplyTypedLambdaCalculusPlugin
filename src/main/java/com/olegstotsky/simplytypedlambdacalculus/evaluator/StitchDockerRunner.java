@@ -7,6 +7,10 @@ import com.intellij.execution.process.ProcessOutput;
 import com.intellij.openapi.application.Application;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.diagnostic.Logger;
+import com.intellij.openapi.progress.ProgressIndicator;
+import com.intellij.openapi.progress.ProgressManager;
+import com.intellij.openapi.progress.Task;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.PrintWriter;
 import java.util.List;
@@ -14,13 +18,39 @@ import java.util.Optional;
 
 public class StitchDockerRunner implements StitchRunner {
     private static Logger LOG = Logger.getInstance(StitchDockerRunner.class);
-    private static StitchDockerRunner INSTANCE = new StitchDockerRunner();
+    public static StitchDockerRunner INSTANCE = new StitchDockerRunner();
+    boolean isRunning = false;
+    String id;
+
+    public StitchDockerRunner() {
+        GeneralCommandLine cmd = new GeneralCommandLine();
+        cmd.setExePath("docker");
+        cmd.addParameters("container", "run", "-dt", "olegstotsky/stitch");
+        ProgressManager.getInstance().run(new Task.Backgroundable(null,
+                "Running stitch docker coontainer...",
+                false) {
+            @Override
+            public void run(@NotNull ProgressIndicator indicator) {
+                try {
+                    CapturingProcessHandler processHandler = new CapturingProcessHandler(cmd);
+                    ProcessOutput out = processHandler.runProcess();
+                    id = out.getStdoutLines().get(0);
+                    isRunning = true;
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 
     @Override
     public Optional<List<String>> evaluate(String text) {
+        if (!isRunning) {
+            return Optional.empty();
+        }
         GeneralCommandLine cmd = new GeneralCommandLine();
         cmd.setExePath("docker");
-        cmd.addParameters("container", "exec", "-i", "348", "/scripts/my_stitch_bin");
+        cmd.addParameters("container", "exec", "-i", id, "/scripts/my_stitch_bin");
         try {
             Application app = ApplicationManager.getApplication();
             CapturingProcessHandler processHandler = new CapturingProcessHandler(cmd);

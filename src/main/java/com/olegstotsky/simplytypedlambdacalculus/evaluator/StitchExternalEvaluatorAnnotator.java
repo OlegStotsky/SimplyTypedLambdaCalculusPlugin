@@ -42,7 +42,7 @@ public class StitchExternalEvaluatorAnnotator extends ExternalAnnotator<Collecte
     @Nullable
     @Override
     public List<ParseResult> doAnnotate(CollectedInfo collectedInfo) {
-        Optional<List<String>> lines = new StitchDockerRunner().evaluate(collectedInfo.rawText);
+        Optional<List<String>> lines = StitchDockerRunner.INSTANCE.evaluate(collectedInfo.rawText);
         if (!lines.isPresent()) {
             return null;
         }
@@ -105,27 +105,6 @@ public class StitchExternalEvaluatorAnnotator extends ExternalAnnotator<Collecte
 
         return ans;
     }
-
-//    private Optional<Pair<String, Boolean>> parseLines(List<String> lines) {
-//        if (lines.size() < 4) {
-//            return Optional.empty();
-//        }
-//
-//        if (lines.get(2).contains("Global variable not in scope")) {
-//            return Optional.of(new Pair<>(lines.get(2).substring(2), false));
-//        }
-//        if (lines.get(2).contains("Bad function application")) {
-//            return Optional.of(new Pair<>(parseErrors(lines, 3), false));
-//        }
-//        if (lines.get(2).contains("Bad arith operand")) {
-//            return Optional.of(new Pair<>(parseErrors(lines, 3), false));
-//        }
-//        if (lines.get(2).contains("Bad conditional")) {
-//            return Optional.of(new Pair<>(parseErrors(lines, 4), false));
-//        } else {
-//            return Optional.of(new Pair<>(lines.get(2).substring(2), true));
-//        }
-//    }
 
     private String parseErrors(List<String> lines, int from, int size) {
         List<String> errors = lines.subList(from, from + size + 1);
