@@ -14,17 +14,18 @@ import java.util.Optional;
 
 public class StitchDockerRunner implements StitchRunner {
     private static Logger LOG = Logger.getInstance(StitchDockerRunner.class);
+    private static StitchDockerRunner INSTANCE = new StitchDockerRunner();
 
     @Override
     public Optional<List<String>> evaluate(String text) {
         GeneralCommandLine cmd = new GeneralCommandLine();
         cmd.setExePath("docker");
-        cmd.addParameters("container", "exec", "-i", "d0", "/scripts/my_stitch_bin");
+        cmd.addParameters("container", "exec", "-i", "348", "/scripts/my_stitch_bin");
         try {
             Application app = ApplicationManager.getApplication();
             CapturingProcessHandler processHandler = new CapturingProcessHandler(cmd);
             PrintWriter stitchStdIn = new PrintWriter(processHandler.getProcessInput());
-            stitchStdIn.println(text.substring(0, text.length() - 1));
+            stitchStdIn.println(text);
             stitchStdIn.flush();
             stitchStdIn.println(":quit");
             stitchStdIn.flush();
