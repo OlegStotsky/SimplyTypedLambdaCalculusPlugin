@@ -27,7 +27,7 @@ public class StitchDockerRunner implements StitchRunner {
         cmd.setExePath("docker");
         cmd.addParameters("container", "run", "-dt", "olegstotsky/stitch");
         ProgressManager.getInstance().run(new Task.Backgroundable(null,
-                "Running stitch docker coontainer...",
+                "Running stitch docker container...",
                 false) {
             @Override
             public void run(@NotNull ProgressIndicator indicator) {
@@ -51,20 +51,21 @@ public class StitchDockerRunner implements StitchRunner {
         GeneralCommandLine cmd = new GeneralCommandLine();
         cmd.setExePath("docker");
         cmd.addParameters("container", "exec", "-i", id, "/scripts/my_stitch_bin");
+        CapturingProcessHandler processHandler;
         try {
-            Application app = ApplicationManager.getApplication();
-            CapturingProcessHandler processHandler = new CapturingProcessHandler(cmd);
-            PrintWriter stitchStdIn = new PrintWriter(processHandler.getProcessInput());
-            stitchStdIn.println(text);
-            stitchStdIn.flush();
-            stitchStdIn.println(":quit");
-            stitchStdIn.flush();
-            ProcessOutput out = processHandler.runProcess();
-            List<String> lines = out.getStdoutLines();
-            return Optional.of(lines);
+            processHandler = new CapturingProcessHandler(cmd);
         } catch (ExecutionException e) {
             LOG.warn(e);
             return Optional.empty();
         }
+        Application app = ApplicationManager.getApplication();
+        PrintWriter stitchStdIn = new PrintWriter(processHandler.getProcessInput());
+        stitchStdIn.println(text);
+        stitchStdIn.flush();
+        stitchStdIn.println(":quit");
+        stitchStdIn.flush();
+        ProcessOutput out = processHandler.runProcess();
+        List<String> lines = out.getStdoutLines();
+        return Optional.of(lines);
     }
 }
