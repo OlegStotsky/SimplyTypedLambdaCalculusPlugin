@@ -54,7 +54,7 @@ public class StitchExternalEvaluatorAnnotator extends ExternalAnnotator<Collecte
         ArrayList<ParseResult> ans = new ArrayList<>();
         int curStmt = 0;
         int i = -1;
-        while (i < strings.size()) {
+        while (i < strings.size() - 1) {
             if (i < 2) {
                 i++;
                 continue;

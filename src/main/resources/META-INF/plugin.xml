@@ -1,6 +1,7 @@
 <idea-plugin>
     <id>com.olegstotsky.SimplyTypedLambdaCalculus</id>
     <name>Simply Typed Lambda Calculus Plugin</name>
+    <vendor>Oleg Stotsky</vendor>
 
     <description>Simply Typed Lambda Calculus Plugin developed for educaitonal purpose</description>
 
@@ -11,10 +12,16 @@
                   language="SimplyTypedLambdaCalculus" extensions="stlc"/>
         <lang.parserDefinition language="SimplyTypedLambdaCalculus"
                                implementationClass="com.olegstotsky.simplytypedlambdacalculus.SimplyTypedLambdaCalculusParserDefinition"/>
-        <configurationType implementation="com.olegstotsky.simplytypedlambdacalculus.execution.SimplyTypedLambdaCalculusRunConfigurationType" />
+        <configurationType
+                implementation="com.olegstotsky.simplytypedlambdacalculus.execution.SimplyTypedLambdaCalculusRunConfigurationType"/>
         <externalAnnotator language="SimplyTypedLambdaCalculus"
                            implementationClass="com.olegstotsky.simplytypedlambdacalculus.evaluator.StitchExternalEvaluatorAnnotator"/>
         <lang.syntaxHighlighterFactory language="SimplyTypedLambdaCalculus"
                                        implementationClass="com.olegstotsky.simplytypedlambdacalculus.SimplyTypedLambdaCalculusSyntaxHighlighterFactory"/>
     </extensions>
+    <actions>
+        <action id="runStitchFileAction" class="com.olegstotsky.simplytypedlambdacalculus.StitchRunFileAction"
+                text="Run File"
+                description="Run current stitch file in the terminal" use-shortcut-of="RunClass"/>
+    </actions>
 </idea-plugin>

@@ -43,6 +43,10 @@ public class StitchDockerRunner implements StitchRunner {
         });
     }
 
+    public Optional<String> getStitchProcessId() {
+        return Optional.ofNullable(id);
+    }
+
     @Override
     public Optional<List<String>> evaluate(String text) {
         if (!isRunning) {
