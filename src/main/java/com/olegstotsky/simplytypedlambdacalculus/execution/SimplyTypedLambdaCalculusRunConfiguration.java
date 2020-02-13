@@ -3,8 +3,8 @@ package com.olegstotsky.simplytypedlambdacalculus.execution;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.ConfigurationFactory;
+import com.intellij.execution.configurations.LocatableConfigurationBase;
 import com.intellij.execution.configurations.RunConfiguration;
-import com.intellij.execution.configurations.RunConfigurationBase;
 import com.intellij.execution.configurations.RunProfileState;
 import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.openapi.options.SettingsEditor;
@@ -19,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 import static com.intellij.openapi.util.io.FileUtil.toSystemDependentName;
 import static com.intellij.openapi.util.text.StringUtil.notNullize;
 
-public class SimplyTypedLambdaCalculusRunConfiguration extends RunConfigurationBase {
+public class SimplyTypedLambdaCalculusRunConfiguration extends LocatableConfigurationBase {
     private static final String TAG_PREFIX = "INDEPENDENT_";
     private static final String FILE_PATH_TAG = "FILE_PATH";
     private String filePath;
@@ -70,13 +70,13 @@ public class SimplyTypedLambdaCalculusRunConfiguration extends RunConfigurationB
     public void writeExternal(@NotNull Element element) {
         super.writeExternal(element);
 
-//        writePathWithMetadata(element, filePath, FILE_PATH_TAG);
+        writePathWithMetadata(element, filePath, FILE_PATH_TAG);
     }
 
     @Override
     public void readExternal(@NotNull Element element) throws InvalidDataException {
         super.readExternal(element);
 
-//        filePath = readPathWithMetadata(element, FILE_PATH_TAG);
+        filePath = readPathWithMetadata(element, FILE_PATH_TAG);
     }
 }
