@@ -20,8 +20,12 @@
                                        implementationClass="com.olegstotsky.simplytypedlambdacalculus.SimplyTypedLambdaCalculusSyntaxHighlighterFactory"/>
     </extensions>
     <actions>
-        <action id="runStitchFileAction" class="com.olegstotsky.simplytypedlambdacalculus.StitchRunFileAction"
-                text="Run File"
-                description="Run current stitch file in the terminal" use-shortcut-of="RunClass"/>
+
+        <action id="startStitchContainerAction"
+                class="com.olegstotsky.simplytypedlambdacalculus.actions.StartStitchContainerAction"
+                text="Start Stitch Container"
+                description="Run current stitch file in the terminal">
+            <add-to-group group-id="RunMenu"/>
+        </action>
     </actions>
 </idea-plugin>

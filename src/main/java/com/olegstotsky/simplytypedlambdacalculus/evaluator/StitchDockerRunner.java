@@ -27,6 +27,10 @@ public class StitchDockerRunner implements StitchRunner {
     String id;
 
     public StitchDockerRunner() {
+        startStitchDockerContainer();
+    }
+
+    public void startStitchDockerContainer() {
         GeneralCommandLine cmd = new GeneralCommandLine();
         cmd.setExePath("docker");
         cmd.addParameters("container", "run", "-dt", "olegstotsky/stitch");
