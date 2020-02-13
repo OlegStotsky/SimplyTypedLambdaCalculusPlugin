@@ -4,12 +4,16 @@ import com.intellij.execution.ExecutionException;
 import com.intellij.execution.configurations.GeneralCommandLine;
 import com.intellij.execution.process.CapturingProcessHandler;
 import com.intellij.execution.process.ProcessOutput;
+import com.intellij.notification.Notification;
+import com.intellij.notification.NotificationType;
 import com.intellij.openapi.application.Application;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.progress.Task;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.project.ProjectManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.PrintWriter;
@@ -36,8 +40,14 @@ public class StitchDockerRunner implements StitchRunner {
                     ProcessOutput out = processHandler.runProcess();
                     id = out.getStdoutLines().get(0);
                     isRunning = true;
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
+                } catch (Exception e) {
+                    LOG.warn(e);
+                    for (Project project : ProjectManager.getInstance().getOpenProjects()) {
+                        final Notification notification = new Notification("StitchStartError", "Error while starting Stitch interpreter",
+                                "An error occured while trying to start Stitch Docker container. " +
+                                        "Please make sure that Docker is running and run Run->Start Stitch Container action from menu", NotificationType.ERROR);
+                        notification.notify(project);
+                    }
                 }
             }
         });
