@@ -27,6 +27,7 @@
       LTE='<='
       GTE='>='
       EQ='='
+      DEQ='=='
       DOT='.'
       COLON=':'
       SEMICOLON=';'
@@ -39,7 +40,15 @@
 
 Root ::= Statement *
 Statement ::= (Declaration | LambdaExpr) ';'
-LambdaExpr ::= ApplicationExpr | VariableExpr | AbstractionExpr | CondExpr |  NumExpr | BoolExpr | ParExpr
+LambdaExpr ::= ApplicationExpr
+        | BinOpExpr
+        | VariableExpr
+        | AbstractionExpr
+        | CondExpr
+        | NumExpr
+        | BoolExpr
+        | ParExpr
+BinOpExpr ::= (VariableExpr | NumExpr) ('+' | '-' | '*' | '==' | '/') LambdaExpr
 Declaration ::= VariableExpr '=' LambdaExpr
 ApplicationExpr ::= '(' LambdaExpr  LambdaExpr ')'
 AbstractionExpr ::= '\' id ':' TypingExpr '.' LambdaExpr

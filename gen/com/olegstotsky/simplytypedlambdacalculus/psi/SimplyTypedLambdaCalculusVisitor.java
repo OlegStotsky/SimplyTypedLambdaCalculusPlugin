@@ -15,6 +15,10 @@ public class SimplyTypedLambdaCalculusVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitBinOpExpr(@NotNull SimplyTypedLambdaCalculusBinOpExpr o) {
+    visitPsiElement(o);
+  }
+
   public void visitBoolExpr(@NotNull SimplyTypedLambdaCalculusBoolExpr o) {
     visitPsiElement(o);
   }

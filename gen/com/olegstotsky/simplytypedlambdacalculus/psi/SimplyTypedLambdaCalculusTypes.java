@@ -10,6 +10,7 @@ public interface SimplyTypedLambdaCalculusTypes {
 
   IElementType ABSTRACTION_EXPR = new SimplyTypedLambdaCalculusElementType("ABSTRACTION_EXPR");
   IElementType APPLICATION_EXPR = new SimplyTypedLambdaCalculusElementType("APPLICATION_EXPR");
+  IElementType BIN_OP_EXPR = new SimplyTypedLambdaCalculusElementType("BIN_OP_EXPR");
   IElementType BOOL_EXPR = new SimplyTypedLambdaCalculusElementType("BOOL_EXPR");
   IElementType COND_EXPR = new SimplyTypedLambdaCalculusElementType("COND_EXPR");
   IElementType DECLARATION = new SimplyTypedLambdaCalculusElementType("DECLARATION");
@@ -25,6 +26,7 @@ public interface SimplyTypedLambdaCalculusTypes {
   IElementType BACKSLASH = new SimplyTypedLambdaCalculusTokenType("\\");
   IElementType BOOL = new SimplyTypedLambdaCalculusTokenType("Bool");
   IElementType COLON = new SimplyTypedLambdaCalculusTokenType(":");
+  IElementType DEQ = new SimplyTypedLambdaCalculusTokenType("==");
   IElementType DIV = new SimplyTypedLambdaCalculusTokenType("/");
   IElementType DOT = new SimplyTypedLambdaCalculusTokenType(".");
   IElementType ELSE = new SimplyTypedLambdaCalculusTokenType("else");
@@ -56,6 +58,9 @@ public interface SimplyTypedLambdaCalculusTypes {
       }
       else if (type == APPLICATION_EXPR) {
         return new SimplyTypedLambdaCalculusApplicationExprImpl(node);
+      }
+      else if (type == BIN_OP_EXPR) {
+        return new SimplyTypedLambdaCalculusBinOpExprImpl(node);
       }
       else if (type == BOOL_EXPR) {
         return new SimplyTypedLambdaCalculusBoolExprImpl(node);

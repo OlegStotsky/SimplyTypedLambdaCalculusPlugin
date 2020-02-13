@@ -14,6 +14,9 @@ public interface SimplyTypedLambdaCalculusLambdaExpr extends PsiElement {
   SimplyTypedLambdaCalculusApplicationExpr getApplicationExpr();
 
   @Nullable
+  SimplyTypedLambdaCalculusBinOpExpr getBinOpExpr();
+
+  @Nullable
   SimplyTypedLambdaCalculusBoolExpr getBoolExpr();
 
   @Nullable

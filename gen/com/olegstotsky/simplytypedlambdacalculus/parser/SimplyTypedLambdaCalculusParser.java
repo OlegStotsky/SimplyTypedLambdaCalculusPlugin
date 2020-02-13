@@ -66,6 +66,43 @@ public class SimplyTypedLambdaCalculusParser implements PsiParser, LightPsiParse
   }
 
   /* ********************************************************** */
+  // (VariableExpr | NumExpr) ('+' | '-' | '*' | '==' | '/') LambdaExpr
+  public static boolean BinOpExpr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "BinOpExpr")) return false;
+    if (!nextTokenIs(b, "<bin op expr>", ID, NUMBER)) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, BIN_OP_EXPR, "<bin op expr>");
+    r = BinOpExpr_0(b, l + 1);
+    r = r && BinOpExpr_1(b, l + 1);
+    r = r && LambdaExpr(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // VariableExpr | NumExpr
+  private static boolean BinOpExpr_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "BinOpExpr_0")) return false;
+    boolean r;
+    r = VariableExpr(b, l + 1);
+    if (!r) r = NumExpr(b, l + 1);
+    return r;
+  }
+
+  // '+' | '-' | '*' | '==' | '/'
+  private static boolean BinOpExpr_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "BinOpExpr_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, PLUS);
+    if (!r) r = consumeToken(b, MINUS);
+    if (!r) r = consumeToken(b, MUL);
+    if (!r) r = consumeToken(b, DEQ);
+    if (!r) r = consumeToken(b, DIV);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // true | false
   public static boolean BoolExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "BoolExpr")) return false;
@@ -110,12 +147,20 @@ public class SimplyTypedLambdaCalculusParser implements PsiParser, LightPsiParse
   }
 
   /* ********************************************************** */
-  // ApplicationExpr | VariableExpr | AbstractionExpr | CondExpr |  NumExpr | BoolExpr | ParExpr
+  // ApplicationExpr
+  //         | BinOpExpr
+  //         | VariableExpr
+  //         | AbstractionExpr
+  //         | CondExpr
+  //         | NumExpr
+  //         | BoolExpr
+  //         | ParExpr
   public static boolean LambdaExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "LambdaExpr")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, LAMBDA_EXPR, "<lambda expr>");
     r = ApplicationExpr(b, l + 1);
+    if (!r) r = BinOpExpr(b, l + 1);
     if (!r) r = VariableExpr(b, l + 1);
     if (!r) r = AbstractionExpr(b, l + 1);
     if (!r) r = CondExpr(b, l + 1);

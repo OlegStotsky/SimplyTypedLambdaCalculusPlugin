@@ -47,6 +47,7 @@ NUMBER=[0-9]+
   "<="               { return LTE; }
   ">="               { return GTE; }
   "="                { return EQ; }
+  "=="               { return DEQ; }
   "."                { return DOT; }
   ":"                { return COLON; }
   ";"                { return SEMICOLON; }
